@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas入门</title>
+    <style>
+        canvas{
+            border:red solid 1px;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="600" height="600"></canvas>
+    <br>
+    <button id="to-top">向上</button>
+    <button id="to-right">向右</button>
+    <button id="to-bottom">向下</button>
+    <button id="to-left">向左</button>
+</body>
+<script src="js/Sprite.js"></script>
+<script>
+    window.onload=function () {
+        var canvas=document.getElementById('canvas');
+        var ctx=canvas.getContext('2d');
+
+        function clear(){
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+        }
+
+        var s =new Sprite({
+            x:100,
+            y:100,
+            w:80,
+            h:130,
+            fps:5,
+            imgSrc:"imgs/gameImgs/DMMban.png"
+        });
+        s.render(ctx);
+
+        document.getElementById('to-top').onclick=function () {
+            s.changeDir('top');
+        }
+
+        document.getElementById('to-right').onclick=function () {
+            s.changeDir('right');
+        }
+
+        document.getElementById('to-bottom').onclick=function () {
+            s.changeDir('bottom');
+        }
+
+        document.getElementById('to-left').onclick=function () {
+            s.changeDir('left');
+        }
+
+    }
+</script>
+</html>

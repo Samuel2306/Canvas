@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas入门</title>
+    <style>
+        canvas{
+            border:red solid 1px;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="600" height="600"></canvas>
+    <br>
+    <button id="to-top">向上</button>
+    <button id="to-right">向右</button>
+    <button id="to-bottom">向下</button>
+    <button id="to-left">向左</button>
+</body>
+<script>
+    window.onload=function () {
+        var canvas=document.getElementById('canvas');
+        var ctx=canvas.getContext('2d');
+
+        /*var img=new Image();
+        img.src='imgs/a.jpg';
+
+        img.onload=function () {
+            var ow=img.width;
+            var oh=img.height;
+            var w=40;
+            ctx.drawImage(img,50,50,w,w*oh/ow);
+        }*/
+
+        function clear(){
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+        }
+        
+        var img2=new Image();
+        img2.src="imgs/gameImgs/DMMban.png";
+        var dirIndex=0;
+        img2.onload=function () {
+            var frameIndex=0;
+            setInterval(function () {
+                clear();
+                ctx.drawImage(img2,frameIndex*40,dirIndex*65,40,65,300,300,40,65);
+                if(frameIndex==3){
+                    frameIndex=0;
+                }else{
+                    frameIndex+=1;
+                }
+            },200);
+        }
+
+        document.getElementById('to-top').onclick=function () {
+            dirIndex=3;
+        }
+
+        document.getElementById('to-right').onclick=function () {
+            dirIndex=2;
+        }
+
+        document.getElementById('to-bottom').onclick=function () {
+            dirIndex=0;
+        }
+
+        document.getElementById('to-left').onclick=function () {
+            dirIndex=1;
+        }
+
+        /*var img3=new Image();
+        img3.src="imgs/gameImgs/DMMban.png";
+        img3.onload=function () {
+            var frameIndex=0;
+            setInterval(function () {
+                ctx.clearRect(200,200,canvas.width,canvas.height)
+                ctx.drawImage(img3,frameIndex*40,130,40,65,300,300,40,65);
+                if(frameIndex==3){
+                    frameIndex=0;
+                }else{
+                    frameIndex+=1;
+                }
+            },200);
+        }*/
+    }
+</script>
+</html>

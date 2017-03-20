@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas入门</title>
+    <style>
+        canvas{
+            border:black solid 1px;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="600" height="600"></canvas>
+</body>
+<script>
+    (function () {
+        var canvas=document.getElementById('canvas');
+        var ctx=canvas.getContext('2d');
+
+        //绘制表格
+        var rectH=20;
+        var rectW=20;
+        for(var i=1;i<canvas.height/rectH;i++){
+           ctx.moveTo(0,rectH*i);
+            ctx.lineTo(canvas.width,rectH*i);
+            /*ctx.strokeStyle="blue";
+            ctx.stroke();*/
+        }
+        for(var i=1;i<canvas.width/rectW;i++){
+            ctx.moveTo(rectW*i,0);
+            ctx.lineTo(rectW*i,canvas.height);
+
+        }
+        ctx.strokeStyle="rgba(0,255,0,.3)";
+        ctx.stroke();
+    })();
+</script>
+</html>

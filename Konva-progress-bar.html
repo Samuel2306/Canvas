@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <title>Canvas入门</title>
+    <style>
+        body{
+            background-color: #f0f0f0;
+            padding:0;
+            margin:0;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+
+    </div>
+    <!--<canvas id="canvas" width="800" height="600"></canvas>-->
+</body>
+<script src="bower_components/konva/konva.js"></script>
+<script>
+    window.onload=function () {
+        var stage = new Konva.Stage({
+            container:'container',
+            width:window.innerWidth,
+            height:window.innerHeight
+        });
+
+        var layer = new Konva.Layer();
+        stage.add(layer);
+
+        var cenX = stage.width()/2;
+        var cenY = stage.height()/2;
+
+        var x = 1/8 * stage.width();
+        var y = cenY;
+        var height = 1/24 * stage.height();
+        var maxWidth=3/4 * stage.width();
+
+        var innerRect = new Konva.Rect({
+            x:x,
+            y:y,
+            width:0,
+            height:height,
+            opacity:.7,
+            fill:'lightblue',
+            cornerRadius:height/4
+        });
+
+        layer.add(innerRect);
+
+        var outerRect = new Konva.Rect({
+            x:x,
+            y:y,
+            width:maxWidth,
+            height:height,
+            stroke:'gray',
+            strokeWidth:4,
+            cornerRadius:height/4
+        });
+
+        layer.add(outerRect);
+
+        layer.draw();
+
+        var imgSrc=['imgs/1.png','imgs/a.jpg','imgs/b.jpg','imgs/bb.png','imgs/bg.jpg'];
+        var loadNum=0;
+        for (var i=0;i<imgSrc.length;i++){
+            var img = new Image();
+            img.src=imgSrc[i];
+            img.onload=function () {
+                loadNum+=1;
+                innerRect.to({
+                    width:maxWidth * loadNum / imgSrc.length,
+                    duration:1.4
+                });
+            }
+        }
+    }
+</script>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas入门</title>
+    <style>
+        canvas{
+            border:black solid 1px;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="600" height="600"></canvas>
+</body>
+<script>
+    (function () {
+        var canvas=document.getElementById('canvas');
+        var ctx=canvas.getContext('2d');
+
+        ctx.fillRect(100,100,100,100);
+        ctx.clearRect(110,110,80,80);
+        ctx.fillRect(120,120,60,60);
+        ctx.clearRect(130,130,40,40);
+        ctx.fillRect(140,140,20,20);
+    })();
+</script>
+</html>

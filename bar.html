@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <title>Canvas入门</title>
+    <style>
+        body{
+            background-color: #f0f0f0;
+            padding:0;
+            margin:0;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+
+    </div>
+    <!--<canvas id="canvas" width="800" height="600"></canvas>-->
+</body>
+<script src="bower_components/konva/konva.js"></script>
+<script src="js/Histogram.js"></script>
+<script>
+    window.onload=function () {
+        var stage = new Konva.Stage({
+            container: 'container',
+            width: window.innerWidth,//全屏
+            height: window.innerHeight
+        });
+
+        //创建层
+        var layer = new Konva.Layer();
+        stage.add(layer);
+
+        //中心点坐标
+        var cenX = stage.width() / 2;
+        var cenY = stage.height() / 2;
+
+        //柱状图的数据
+        var data = [
+            { name: '前端', value: '.8', color: 'green'},
+            { name: 'PHP', value: '.3', color: 'blue'},
+            { name: 'Java', value: '.7', color: 'red'},
+            { name: 'UI', value: '.9', color: 'orange'},
+            { name: 'IOS', value: '.4', color: 'purple'},
+            { name: 'Android', value: '.9', color: 'pink'}
+        ];
+        /*var x0 = 1/8 * stage.width();
+        var y0 = 3/4 * stage.height();
+        var w = 3/4 * stage.width();
+        var h = 1/2 * stage.height();
+
+
+        var group = new Konva.Group({
+            x:0,
+            y:0
+        });
+
+        var baseLine = new Konva.Line({
+            points:[x0,y0,x0 + w,y0],
+            strokeWidth:1,
+            stroke:'lightgreen'
+        });
+        group.add(baseLine);
+
+        var rectWidth = w / data.length;
+        data.forEach(function(item,index){
+            var rect = new Konva.Rect({
+                x:x0 + (1/4 + index) * rectWidth,
+                y:y0 - item.value * h,
+                width:1 / 2 * rectWidth,
+                height:item.value * h,
+                fill:item.color,
+                shadowBlur:10,
+                shadowColor:'black',
+                opacity:.8,
+                cornerRadius:10
+            });
+            group.add(rect);
+
+            var bottomText = new Konva.Text({
+                x:x0 + (1/2 + index) * rectWidth,
+                y:y0 + 10,
+                text:item.name,
+                fontSize:14,
+                fill:item.color,
+                rotation:30
+            });
+            group.add(bottomText);
+
+            var topText = new Konva.Text({
+                x:x0 + (1/4 + index) * rectWidth,
+                y:y0 - item.value * h - 20,
+                width:1 / 2 * rectWidth,
+                align:'center',
+                text:item.value * 100 + '%',
+                fontSize:14,
+                fill:item.color,
+                name:'text'
+            })
+            group.add(topText);
+        })
+
+        layer.add(group);
+
+        layer.draw();
+
+        stage.on('contentClick',function () {
+            group.find('Rect').each(function (item,index) {
+                item.y(y0);
+                item.height(0);
+                item.to({
+                    y:y0 - data[index].value * h,
+                    height:data[index].value * h,
+                    duration:2
+                })
+            });
+
+            group.find('.text').each(function (item,index) {
+                item.y(y0-20);
+                item.to({
+                    y:y0 - data[index].value * h - 20,
+                    duration:2
+                })
+            });
+        });*/
+
+        var h = new HistogramChart({
+            x : 1/8 * stage.width(),
+            y : 3/4 * stage.height(),
+            w : 3/4 * stage.width(),
+            h : 1/2 * stage.height(),
+            data:data
+        })
+
+        h.addToGroupOrLayer(layer);
+        layer.draw();
+
+        stage.on('contentClick',function () {
+            h.animationPlay();
+        });
+    }
+</script>
+</html>

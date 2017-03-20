@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <title>Canvas入门</title>
+    <style>
+        body{
+            background-color: #f0f0f0;
+            padding:0;
+            margin:0;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+
+    </div>
+    <!--<canvas id="canvas" width="800" height="600"></canvas>-->
+</body>
+<script src="bower_components/konva/konva.js"></script>
+<script src="js/pie.js"></script>
+<script>
+    window.onload=function () {
+        var stage = new Konva.Stage({
+            container: 'container',
+            width: window.innerWidth,//全屏
+            height: window.innerHeight
+        });
+
+        //创建层
+        var layer = new Konva.Layer();
+        stage.add(layer);
+
+        //中心点坐标
+        var cenX = stage.width() / 2;
+        var cenY = stage.height() / 2;
+        var x0 = cenX;
+        var y0 = cenY;
+
+        //柱状图的数据
+        var data = [
+            { name: '前端', value: '.25', color: 'green'},
+            { name: 'PHP', value: '.2', color: 'blue'},
+            { name: 'Java', value: '.3', color: 'red'},
+            { name: 'UI', value: '.05', color: 'orange'},
+            { name: 'IOS', value: '.1', color: 'purple'},
+            { name: 'Android', value: '.1', color: 'pink'}
+        ];
+
+        /*var startAngle = -90;
+        data.forEach(function (item,index) {
+            var angle = item.value * 360;
+            var angle1= startAngle + 1/2 * angle;
+            var wedge = new Konva.Wedge({
+                x:x0,
+                y:y0,
+                angle:angle,
+                radius:100,
+                fill:item.color,
+                rotation:startAngle
+            });
+            layer.add(wedge);
+            var text = new Konva.Text({
+                x:x0 + 130 * Math.cos(Math.PI / 180 * angle1),
+                y:y0 + 130 * Math.sin(Math.PI / 180 * angle1),
+                text:item.value * 100 + '%',
+                fill:item.color
+            });
+
+            if( angle1 > 90 && angle1 < 270){
+                text.x(text.x()-text.getTextWidth());
+            }
+            layer.add(text);
+
+            startAngle += angle;
+        });
+
+
+        var circle = new Konva.Circle({
+            x:x0,
+            y:y0,
+            radius:110,
+            stroke:"#ccc",
+            strokeWidth:2
+        })
+        layer.add(circle);
+        layer.draw();
+
+        var wedges = layer.find('Wedge');
+        for(var i=0;i<data.length;i++){
+            wedges[i].angle(0);
+        }
+        function animationPlay(index) {
+            index = index || 0;
+            if(index < data.length){
+                var item = wedges[index];
+                item.angle(0);
+                item.to({
+                    angle:data[index].value * 360,
+                    duration:2 * data[index].value,
+                    onFinish:function () {
+                        index += 1;
+                        animationPlay(index);
+                    }
+                });
+            }
+        }
+
+        animationPlay();*/
+
+        var pie = new PieChart({
+            x:x0,
+            y:y0,
+            radius:100,
+            data:data
+        });
+        pie.addToGroupOrLayer(layer);
+        layer.draw();
+
+        stage.on('contentClick',function () {
+            pie.animationPlay();
+        })
+    }
+</script>
+</html>

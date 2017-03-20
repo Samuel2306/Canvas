@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas入门</title>
+    <style>
+        canvas{
+            border:red solid 1px;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="600" height="600"></canvas>
+</body>
+<script src="js/Rect.js"></script>
+<script>
+    window.onload=function () {
+        var canvas=document.getElementById('canvas');
+        var ctx=canvas.getContext('2d');
+
+        var rect =new Rect({
+            x:100,
+            y:100,
+            w:90,
+            h:90,
+            rotation:45,
+            opacity:.1,
+            scaleX:1,
+            scaleY:1
+        });
+        rect.render(ctx);
+
+        /*for(var i=0;i<12;i++){
+            var rect =new Rect({
+                x:300,
+                y:300,
+                w:130,
+                h:130,
+                rotation:30*i,
+                strokeStyle:'transparent',
+                opacity:1,
+                scaleX:1,
+                scaleY:1
+            });
+            rect.render(ctx);
+        }*/
+        setInterval(function(){
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            rect.x+=10;
+            rect.render(ctx);
+        },100);
+    }
+</script>
+</html>
